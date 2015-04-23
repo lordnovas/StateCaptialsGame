@@ -1,38 +1,60 @@
 package com.cs211d.joel.statecaptials;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 
-public class ScoresScreen extends ActionBarActivity {
+
+public class ScoresScreen extends ActionBarActivity
+{
+    DataBaseAdapter dataBaseAdapter;
+    TextView tv_userScores;
+    String userName;
+    int score;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores_screen);
+
+        dataBaseAdapter = new DataBaseAdapter(this);
+
+        Intent i = getIntent();
+
+        userName = i.getExtras().getString("currUser");
+
+        score = i.getExtras().getInt("userScore");
+
+        dataBaseAdapter.insertScore_USERTABLE(userName, score);
+
+        tv_userScores = (TextView)findViewById(R.id.scores);
+
+        String temp = dataBaseAdapter.getAllData_USERTABLE();
+
+        tv_userScores.setText(temp);
+
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_scores_screen, menu);
-        return true;
+
+    public void playAgain(View view)
+    {
+        Intent i = new Intent(getApplicationContext(),GameScreen.class);
+        i.putExtra("userScore", 0);
+        i.putExtra("currUser",userName);
+        startActivity(i);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void startSplash(View view)
+    {
+        Intent i = new Intent(getApplicationContext(),SplashScreen.class);
+        startActivity(i);
     }
+
+
 }

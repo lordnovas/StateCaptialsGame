@@ -9,29 +9,33 @@
     <TextView android:text="@string/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:textSize="25sp"/>
 
     <EditText
+        android:id="@+id/et_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Enter User Name"/>
+        android:layout_marginTop="50sp"
+        android:layout_gravity="center"
+        android:hint="Enter User Name"
+        android:singleLine="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play"
+        android:layout_marginTop="50sp"
+        android:layout_gravity="center"
+        android:text="Play Game"
         android:onClick="gotoGame"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="View Scores"
+        android:layout_gravity="center"
+        android:layout_marginTop="50sp"
+        android:text="View High Scores"
         android:onClick="gotoScores"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Show Some Data"
-        android:onClick="showDBData"/>
 
 </LinearLayout>

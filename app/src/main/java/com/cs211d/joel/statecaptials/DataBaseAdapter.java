@@ -9,24 +9,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-/*
-TODO - Add Methods for States Table, pretty much the same as USerScore Table
-TODO - Add CSVReader class and fill methods
- */
-
 public class DataBaseAdapter
 {
 
     DataBaseHelper helper;
 
+
+    /************Constructor***************************/
     public DataBaseAdapter(Context context)
     {
         helper = new DataBaseHelper(context);
     }
 
 
-    /**********************Methods for TABLE_UserScore**************/
+    /***************Methods for TABLE_UserScore*************/
 
+
+    /***********insertUser**********************************/
     public long insertUser_USERTABLE(String name)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -34,60 +33,70 @@ public class DataBaseAdapter
         ContentValues cv = new ContentValues();
 
         cv.put(DataBaseHelper.NAME,name);
+        cv.put(DataBaseHelper.SCORE,0);
 
-        long id = db.insert(helper.TABLE_USERSCORES,null,cv);
+        long id = db.insert(DataBaseHelper.TABLE_USERSCORES, null, cv);
 
         return id;
     }
+
+    /************insertScore********************************/
 
     public long insertScore_USERTABLE(String name,int score)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(helper.SCORE, score);
+        contentValues.put(DataBaseHelper.SCORE, score);
         String[] whereArgs={name};
-        int count = db.update(helper.TABLE_USERSCORES, contentValues, helper.NAME + "=?", whereArgs);
+        int count = db.update(DataBaseHelper.TABLE_USERSCORES, contentValues, DataBaseHelper.NAME + "=?", whereArgs);
         return count;
     }
 
+
+    /*************getAllData()******************************/
     public String getAllData_USERTABLE()
     {
+        //Get all the users sorted by scores in desc order
 
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {helper.UID,helper.NAME,helper.SCORE};
+        String[] columns = {DataBaseHelper.UID, DataBaseHelper.NAME, DataBaseHelper.SCORE};
 
         StringBuffer buffer = new StringBuffer();
 
-        Cursor cursor = db.query(helper.TABLE_USERSCORES, columns, null, null, null, null, null);
+        Cursor cursor = db.query(DataBaseHelper.TABLE_USERSCORES, columns,null, null, null,null, DataBaseHelper.SCORE +" DESC ","10");
+
+        int rank = 0;
 
         while(cursor.moveToNext())
         {
-            int cid = cursor.getInt(0);
+            rank++;
             String name  = cursor.getString(1);
             String score = cursor.getString(2);
 
-            buffer.append(cid+" "+name+" "+score+"\n");
+            buffer.append(rank+" "+name+" "+score+"\n");
         }
 
         return buffer.toString();
     }
 
+    /*************getScore()********************************/
+
     public String getScore_USERTABLE(String name)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {helper.SCORE};
+        String[] columns = {DataBaseHelper.SCORE};
 
         String[] selectionArgs ={name};
 
         StringBuffer buffer = new StringBuffer();
 
-        Cursor cursor = db.query(helper.TABLE_USERSCORES, columns, helper.NAME +"=?",selectionArgs, null, null, null);
+        Cursor cursor = db.query(DataBaseHelper.TABLE_USERSCORES, columns, DataBaseHelper.NAME + "=?", selectionArgs, null, null, null);
 
         while(cursor.moveToNext())
         {
-            int index2  = cursor.getColumnIndex(helper.SCORE);
+            int index2  = cursor.getColumnIndex(DataBaseHelper.SCORE);
             int score = cursor.getInt(index2);
 
             buffer.append(score);
@@ -95,45 +104,96 @@ public class DataBaseAdapter
         return buffer.toString();
     }
 
+    /*************deleteRow()*******************************/
     public int deleteRow_USERTABLE(String name)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] whereArgs ={name};
-        int count = db.delete(helper.TABLE_USERSCORES, helper.NAME + "=?", whereArgs);
-
+        String[] whereArgs = {name};
+        int count = db.delete(DataBaseHelper.TABLE_USERSCORES, DataBaseHelper.NAME + "=?", whereArgs);
         return count;
     }
 
 
+    /*************STATE TABLE Methods***********************/
 
-    /**********************Methods for TABLE_STATES**************/
 
-    public long insertSTATEnCAP_STATESTABLE(String state,String captial)
+    /*************insertState()*****************************/
+    public long insertState_STATESTABLE(String state,String capital)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
 
         cv.put(DataBaseHelper.STATENAME,state);
-        cv.put(DataBaseHelper.STATECAPITAL,captial);
+        cv.put(DataBaseHelper.STATECAPITAL,capital);
 
-        long id = db.insert(helper.TABLE_STATES, null, cv);
+        long id = db.insert(DataBaseHelper.TABLE_STATES, null, cv);
 
         return id;
     }
 
 
+    /*************getCapital()******************************/
+    public String getCaptial_STATETABLE(String stateName)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String[] columns = {DataBaseHelper.STATECAPITAL};
+
+        String[] selectionArgs ={stateName};
+
+        StringBuffer buffer = new StringBuffer();
+
+        Cursor cursor = db.query(DataBaseHelper.TABLE_STATES, columns,
+                DataBaseHelper.STATENAME + "=?", selectionArgs, null, null, null);
+
+        while(cursor.moveToNext())
+        {
+            int index2  = cursor.getColumnIndex(DataBaseHelper.STATECAPITAL);
+            String cap = cursor.getString(index2);
+
+            buffer.append(cap);
+        }
+        return buffer.toString();
+    }
+
+    /*************getState()********************************/
+    public String getState_STATETABLE(String stateName)
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String[] columns = {DataBaseHelper.STATENAME};
+
+        String[] selectionArgs ={stateName};
+
+        StringBuffer buffer = new StringBuffer();
+
+        Cursor cursor = db.query(DataBaseHelper.TABLE_STATES, columns,
+                DataBaseHelper.STATENAME + "=?", selectionArgs, null, null, null);
+
+        while(cursor.moveToNext())
+        {
+            int index1  = cursor.getColumnIndex(DataBaseHelper.STATENAME);
+            String state = cursor.getString(index1);
+
+            buffer.append(state);
+        }
+        return buffer.toString();
+    }
+
+    /*************getAllData() From StatesTable*************/
 
     public String getAllData_STATESTABLE()
     {
 
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {helper.UID,helper.STATENAME,helper.STATECAPITAL};
+        String[] columns = {DataBaseHelper.UID, DataBaseHelper.STATENAME, DataBaseHelper.STATECAPITAL};
 
         StringBuffer buffer = new StringBuffer();
 
-        Cursor cursor = db.query(helper.TABLE_STATES, columns, null, null, null, null, null);
+        Cursor cursor = db.query(DataBaseHelper.TABLE_STATES,
+                columns, null, null, null, null, null);
 
         while(cursor.moveToNext())
         {
@@ -148,27 +208,42 @@ public class DataBaseAdapter
     }
 
 
+    /*************getState()********************************/
+
     public String getState_STATESTABLE(int uid)
-{
-    SQLiteDatabase db = helper.getWritableDatabase();
-
-    String[] columns = {helper.STATENAME};
-
-    String[] selectionArgs ={""+uid};
-
-    StringBuffer buffer = new StringBuffer();
-
-    Cursor cursor = db.query(helper.TABLE_STATES, columns, helper.UID +"=?",selectionArgs, null, null, null,null);
-
-    while(cursor.moveToNext())
     {
-        int index1  = cursor.getColumnIndex(helper.STATENAME);
-        int stateName = cursor.getInt(index1);
+        SQLiteDatabase db = helper.getWritableDatabase();
 
-        buffer.append(stateName);
+        String[] columns = {DataBaseHelper.STATENAME};
+
+        String[] selectionArgs = {"" + uid};
+
+        StringBuffer buffer = new StringBuffer();
+
+        Cursor cursor = db.query(DataBaseHelper.TABLE_STATES, columns, DataBaseHelper.UID + "=?", selectionArgs, null, null, null, null);
+
+        while (cursor.moveToNext())
+        {
+            int index1 = cursor.getColumnIndex(DataBaseHelper.STATENAME);
+
+            String stateName = cursor.getString(index1);
+
+            buffer.append(stateName);
+        }
+        return buffer.toString();
     }
-    return buffer.toString();
-}
+
+    /*************deleteAllRows()***************************/
+
+    public void deleteAllRows()
+    {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        db.delete(DataBaseHelper.TABLE_STATES, null, null);
+
+    }
+
+    /*************DataBaseHelper Class**********************/
 
     static class DataBaseHelper extends SQLiteOpenHelper
     {

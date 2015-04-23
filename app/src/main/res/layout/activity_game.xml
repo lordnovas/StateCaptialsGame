@@ -5,10 +5,82 @@
     android:orientation="vertical"
     tools:context="com.cs211d.joel.statecaptials.GameScreen">
 
-
-    <TextView android:text="@string/title_activity_game"
+    <TextView
+        android:id="@+id/userName"
+        android:text="@string/userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="left"
+        android:layout_marginTop="10sp"
+        android:layout_marginLeft="10sp"
+        android:textSize="15sp" />
 
+    <TextView
+        android:id="@+id/numRounds"
+        android:text="@string/numRounds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_marginLeft="10sp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/score"
+        android:text="@string/userScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:textSize="15sp"
+        android:layout_marginLeft="10sp"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_questions"
+        android:textSize="20sp"
+        android:text="@string/questionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50sp" />
+
+    <EditText
+        android:id="@+id/et_cap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Capital"
+        android:singleLine="true"
+        android:layout_marginTop="75sp" />
+
+    <Button
+        android:id="@+id/bt_nextQuestion"
+        android:text="Submit Answer"
+        android:layout_marginTop="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="submit" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50sp">
+
+        <Button
+            android:id="@+id/bt_gotoScores"
+            android:text="Back to Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="256sp"
+            android:onClick="gotoScores" />
+
+        <Button
+            android:id="@+id/bt_gotoSplash"
+            android:text="View Scores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="gotoSplash" />
+
+    </RelativeLayout>
 </LinearLayout>
