@@ -1,3 +1,14 @@
+<!--
+  Author: Joel Rainey
+  Date: 4/23
+  Class: CS211D Spring 2015
+  Android Project: State Capitals Trivia Game
+  Filename: activity_splash_screen.xml
+  Assignment Objective: Create State Capitals Trivia Game. Where the questions, user name and
+  score are stored in an SQLite Database
+-->
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
