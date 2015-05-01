@@ -49,6 +49,7 @@ public class ScoresScreen extends ActionBarActivity
     }
 
 
+    /***********playAgain()**********************/
     public void playAgain(View view)
     {
         Intent i = new Intent(getApplicationContext(),GameScreen.class);
@@ -57,6 +58,8 @@ public class ScoresScreen extends ActionBarActivity
         startActivity(i);
     }
 
+
+    /***********startSplash()********************/
     public void startSplash(View view)
     {
         Intent i = new Intent(getApplicationContext(),SplashScreen.class);

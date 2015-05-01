@@ -126,6 +126,22 @@ public class DataBaseAdapter
     /*************STATE TABLE Methods***********************/
 
 
+
+    public int count()
+    {
+        SQLiteDatabase db = helper.getReadableDatabase();
+
+        String countQuery = "SELECT  * FROM " + DataBaseHelper.TABLE_STATES;
+
+        Cursor cursor = db.rawQuery(countQuery,null);
+
+        int i = cursor.getCount();
+
+        return i;
+
+    }
+
+
     /*************insertState()*****************************/
     public long insertState_STATESTABLE(String state,String capital)
     {
@@ -247,9 +263,7 @@ public class DataBaseAdapter
     public void deleteAllRows()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-
-        db.delete(DataBaseHelper.TABLE_STATES, null, null);
-
+        int count = db.delete(DataBaseHelper.TABLE_STATES, null, null);
     }
 
     /*************DataBaseHelper Class**********************/
@@ -302,8 +316,6 @@ public class DataBaseAdapter
         {
             super(context,DATABASE_NAME,null,DATABASE_VERSION);
             this.context=context;
-            Message.message(context,"Constructor Called");
-
         }
 
         @Override

@@ -41,19 +41,39 @@ public class SplashScreen extends ActionBarActivity
 
         dataBaseAdapter = new DataBaseAdapter(this);
 
+        filldb();
+
+
+    }
+
+
+
+    public void delete()
+    {
+        dataBaseAdapter.deleteAllRows();
+        Message.message(this, "" + dataBaseAdapter.count());
+    }
+
+
+    public void filldb()
+    {
         is = getResources().openRawResource(R.raw.states);
 
         csvReader = new CSVReader(is);
 
         stateList = csvReader.readData();
 
-        //Fill States Table with States and Capitals
-        for(String intoDb[]:stateList)
+        if(dataBaseAdapter.count() ==0)
         {
-            dataBaseAdapter.insertState_STATESTABLE(intoDb[0],intoDb[1]);
+            //Fill States Table with States and Capitals
+            for (String intoDb[] : stateList)
+            {
+                dataBaseAdapter.insertState_STATESTABLE(intoDb[0], intoDb[1]);
+            }
         }
-
+        Message.message(this,""+dataBaseAdapter.count());
     }
+
 
 
     /************gotoGame()***************************/

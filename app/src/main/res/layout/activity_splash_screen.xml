@@ -48,5 +48,4 @@
         android:text="View High Scores"
         android:onClick="gotoScores"/>
 
-
 </LinearLayout>

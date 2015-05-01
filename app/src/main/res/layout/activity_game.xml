@@ -79,7 +79,7 @@
 
         <Button
             android:id="@+id/bt_gotoScores"
-            android:text="Back to Login"
+            android:text="View Scores"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -88,7 +88,7 @@
 
         <Button
             android:id="@+id/bt_gotoSplash"
-            android:text="View Scores"
+            android:text="Login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="gotoSplash" />
