@@ -46,25 +46,40 @@
 
         />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_question_1"
+            android:textSize="20sp"
+            android:text="@string/questionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+
     <TextView
-        android:id="@+id/tv_questions"
+        android:id="@+id/tv_question_2"
         android:textSize="20sp"
+        android:layout_marginTop="25sp"
         android:text="@string/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="50sp" />
-
+        android:visibility="invisible"/>
     <EditText
         android:id="@+id/et_cap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Capital"
+        android:hint="Enter Answer"
         android:singleLine="true"
         android:layout_marginTop="75sp" />
 
     <Button
-        android:id="@+id/bt_nextQuestion"
+        android:id="@+id/bt_submit"
         android:text="Submit Answer"
         android:layout_marginTop="25sp"
         android:layout_width="wrap_content"
@@ -94,4 +109,21 @@
             android:onClick="gotoSplash" />
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/bt_yes"
+        android:text="Yes"
+        android:layout_marginTop="25sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="yesOrNo" />
+    <Button
+        android:id="@+id/bt_no"
+        android:text="No"
+        android:layout_marginTop="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="yesOrNo" />
 </LinearLayout>
