@@ -42,25 +42,12 @@ public class SplashScreen extends ActionBarActivity
         dataBaseAdapter = new DataBaseAdapter(this);
 
         filldb();
-
-
     }
-
-
-
-    public void delete()
-    {
-        dataBaseAdapter.deleteAllRows();
-        Message.message(this, "" + dataBaseAdapter.count());
-    }
-
 
     public void filldb()
     {
         is = getResources().openRawResource(R.raw.states);
-
         csvReader = new CSVReader(is);
-
         stateList = csvReader.readData();
 
         if(dataBaseAdapter.count() ==0)

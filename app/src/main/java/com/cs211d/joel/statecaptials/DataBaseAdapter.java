@@ -51,7 +51,8 @@ public class DataBaseAdapter
         ContentValues contentValues = new ContentValues();
         contentValues.put(DataBaseHelper.SCORE, score);
         String[] whereArgs={name};
-        return db.update(DataBaseHelper.TABLE_USERSCORES, contentValues, DataBaseHelper.NAME + "=?", whereArgs);
+        return db.update(DataBaseHelper.TABLE_USERSCORES,
+                contentValues, DataBaseHelper.NAME + "=?", whereArgs);
     }
 
 
@@ -93,14 +94,12 @@ public class DataBaseAdapter
     public String getScore_USERTABLE(String name)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-
         String[] columns = {DataBaseHelper.SCORE};
-
         String[] selectionArgs ={name};
-
         StringBuffer buffer = new StringBuffer();
-
-        Cursor cursor = db.query(DataBaseHelper.TABLE_USERSCORES, columns, DataBaseHelper.NAME + "=?", selectionArgs, null, null, null);
+        Cursor cursor = db.query(DataBaseHelper.TABLE_USERSCORES,
+                columns, DataBaseHelper.NAME + "=?", selectionArgs,
+                null, null, null);
 
         while(cursor.moveToNext())
         {
@@ -146,9 +145,7 @@ public class DataBaseAdapter
                                         String capital)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-
         ContentValues cv = new ContentValues();
-
         cv.put(DataBaseHelper.STATENAME,state);
         cv.put(DataBaseHelper.STATECAPITAL, capital);
 
@@ -160,13 +157,9 @@ public class DataBaseAdapter
     public String getCapital(String stateName)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-
         String[] columns = {DataBaseHelper.STATECAPITAL};
-
         String[] selectionArgs ={stateName};
-
         StringBuffer buffer = new StringBuffer();
-
         Cursor cursor = db.query(DataBaseHelper.TABLE_STATES, columns,
                 DataBaseHelper.STATENAME + "=?", selectionArgs, null, null, null);
 
@@ -174,11 +167,8 @@ public class DataBaseAdapter
         {
             int index2  = cursor.getColumnIndex(DataBaseHelper.STATECAPITAL);
             String cap = cursor.getString(index2);
-
             buffer.append(cap);
         }
-
-        /**Added Close Method **/
         helper.close();
         return buffer.toString();
     }
@@ -357,7 +347,6 @@ public class DataBaseAdapter
             {
                 db.execSQL(CREATE_TABLE_USERSCORES);
                 db.execSQL(CREATE_TABLE_STATES);
-                Message.message(context, "onCreate Called");
             }
             catch (SQLException e)
             {
@@ -374,7 +363,6 @@ public class DataBaseAdapter
             {
                 db.execSQL(DROP_TABLE_USERSCORES);
                 db.execSQL(DROP_TABLE_STATES);
-                Message.message(context, "onUpgrade Called");
                 onCreate(db);
             }
             catch (SQLException e)
