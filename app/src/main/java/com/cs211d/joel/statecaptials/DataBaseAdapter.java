@@ -31,9 +31,9 @@ public class DataBaseAdapter
         helper = new DataBaseHelper(context);
     }
 
-    /***************Methods for TABLE_UserScore*************/
+    /***************Methods for TABLE_UserScore********/
 
-    /***********insertUser**********************************/
+    /***********insertUser*****************************/
     public long insertUser_USERTABLE(String name)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -43,7 +43,7 @@ public class DataBaseAdapter
         return db.insert(DataBaseHelper.TABLE_USERSCORES, null, cv);
     }
 
-    /************insertScore********************************/
+    /************insertScore***************************/
 
     public long insertScore_USERTABLE(String name,int score)
     {
@@ -56,7 +56,7 @@ public class DataBaseAdapter
     }
 
 
-    /*************getAllData()******************************/
+    /*************getAllData()*************************/
     public String getAllData_USERTABLE()
     {
         //Get all the users sorted by scores in desc order
@@ -89,7 +89,7 @@ public class DataBaseAdapter
         return buffer.toString();
     }
 
-    /*************getScore()********************************/
+    /*************getScore()***************************/
 
     public String getScore_USERTABLE(String name)
     {
@@ -111,7 +111,7 @@ public class DataBaseAdapter
         return buffer.toString();
     }
 
-    /*************deleteRow()*******************************/
+    /*************deleteRow()*********************/
     public int deleteRow_USERTABLE(String name)
     {
         SQLiteDatabase db = helper.getWritableDatabase();
@@ -120,7 +120,7 @@ public class DataBaseAdapter
 
     }
 
-    /*************STATE TABLE Methods*******************/
+    /*************STATE TABLE Methods*************/
 
     /*************count()*************************/
     public int count()
@@ -237,39 +237,11 @@ public class DataBaseAdapter
             state = cursor.getString(2);
         }
 
-        /**Added Close Method **/
         helper.close();
         return state;
     }
 
-    /*************getAllData()********************/
-    public String getAllData_STATESTABLE()
-    {
 
-        SQLiteDatabase db = helper.getWritableDatabase();
-
-        String[] columns = {DataBaseHelper.UID,
-                DataBaseHelper.STATENAME,
-                DataBaseHelper.STATECAPITAL};
-
-        StringBuffer buffer = new StringBuffer();
-
-        Cursor cursor = db.query(DataBaseHelper.TABLE_STATES,
-                columns, null, null, null, null, null);
-
-        while(cursor.moveToNext())
-        {
-            int cid = cursor.getInt(0);
-            String states  = cursor.getString(1);
-            String capitals = cursor.getString(2);
-
-            buffer.append(cid+" "+states+" "+capitals+"\n");
-        }
-
-        helper.close();
-
-        return buffer.toString();
-    }
 
 
     /*************deleteAllRows()*****************/
@@ -277,7 +249,7 @@ public class DataBaseAdapter
     public void deleteAllRows()
     {
         SQLiteDatabase db = helper.getWritableDatabase();
-        int count = db.delete(DataBaseHelper.TABLE_STATES,
+        int count = db.delete(DataBaseHelper.TABLE_USERSCORES,
                 null, null);
     }
 

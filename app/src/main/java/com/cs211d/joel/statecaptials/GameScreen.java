@@ -169,7 +169,7 @@ public class GameScreen extends ActionBarActivity
         }
     }
 
-    /************gotoScores()*********************************/
+    /************gotoScores()*******************/
     public void gotoScores(View view)
     {
         Intent i = new Intent(getApplicationContext(),ScoresScreen.class);
@@ -178,14 +178,14 @@ public class GameScreen extends ActionBarActivity
         startActivity(i);
     }
 
-    /************gotoSplash()******************************/
+    /************gotoSplash()******************/
     public void gotoSplash(View view)
     {
         Intent i = new Intent(getApplicationContext(),SplashScreen.class);
         startActivity(i);
     }
 
-    /**********yesOrNo()***********************************/
+    /**********yesOrNo()***********************/
 
     public void yesOrNo(View v)
     {
